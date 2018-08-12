@@ -5,7 +5,7 @@ const app = express();
 // app.get creates new route handler to watch for '/'
 // you can create app.<http_verb>
 app.get('/', (req, res) => {
-    res.send({ hi: 'there' });
+    res.send({ by: 'buddy' });
 });
 
 // Heroku can pass us runtime config based on environment
