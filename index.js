@@ -1,7 +1,12 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+require('./models/User');
 // we don't need to assign a var to this because we just need the file to be execute
 // don't need to export anything
 require('./services/passport');
+// connect to MongoDB db hosted instance
+mongoose.connect(keys.mongooseURI);
 // vast majority of projects use a single app object
 const app = express();
 // essentially made the entire authRoutes.js file a function that takes an app object
