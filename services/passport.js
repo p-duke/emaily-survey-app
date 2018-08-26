@@ -8,8 +8,18 @@ const keys = require('../config/keys');
 // this grabs the model class which === MongoDB collection
 const User = mongoose.model('users');
 
+// put user info into cookie
+// user is a mongoose model
 passport.serializeUser((user, done) => {
     done(null, user.id);
+});
+
+// get info from the cookie
+passport.deserializeUser((id, done) => {
+    // this is asynchronous
+    User.findById(id).then(user => {
+        done(null, user);
+    });
 });
 // passport.use is a generic register to be aware of new strategy
 passport.use(

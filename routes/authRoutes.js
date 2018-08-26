@@ -16,4 +16,13 @@ module.exports = app => {
     // this passes the code we receive back to google
     // passport will see the coede and automatically handle the code exchange
     app.get('/auth/google/callback', passport.authenticate('google'));
+
+    app.get('/api/logout', (req, res) => {
+        req.logout();
+        res.send(req.user);
+    });
+
+    app.get('/api/current_user', (req, res) => {
+        res.send(req.user);
+    });
 };
