@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header";
+import Landing from "./Landing";
 // React and redux weren't built with both in mind so need react-redux
 // The connect function allows certain components to call action creators
 import { connect } from "react-redux";
@@ -9,7 +10,6 @@ import * as actions from "../actions";
 
 const Dashboard = () => <h2>Dashboard </h2>;
 const SurveyNew = () => <h2>SurveyNew </h2>;
-const Landing = () => <h2>Landing </h2>;
 
 /*
 BrowserRouter must have one child - cannot have two divs
