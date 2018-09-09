@@ -7,6 +7,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 require("./models/User");
+require("./models/Survey");
 // we don't need to assign a var to this because we just need the file to be execute
 // don't need to export anything
 require("./services/passport");
@@ -37,6 +38,7 @@ require("./routes/authRoutes")(app);
 // these require statments will just return a function since we module.exports
 // and then we just call app with that function - pretty cool!
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   // express will serve up our production assets
