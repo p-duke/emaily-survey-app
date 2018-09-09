@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // cookieSession gives us access to cookies via express
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 require("./models/User");
 // we don't need to assign a var to this because we just need the file to be execute
@@ -14,8 +15,11 @@ mongoose.connect(keys.mongooseURI);
 // vast majority of projects use a single app object
 const app = express();
 
+// this will automatically parse request and apply to req.body
+app.use(bodyParser.json());
 // app.use configures the middleware to perform logic on request (e.g. cookie session, passport, deserializeUser)
 // all requests go through middleware and is then passed off to the route handler
+// if you want to wire up any middleware in express you need to use the app.use call
 app.use(
   cookieSession({
     // how long cookie lasts for 30 days
