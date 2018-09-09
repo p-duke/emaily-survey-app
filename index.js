@@ -38,6 +38,19 @@ require("./routes/authRoutes")(app);
 // and then we just call app with that function - pretty cool!
 require("./routes/billingRoutes")(app);
 
+if (process.env.NODE_ENV === "production") {
+  // express will serve up our production assets
+  // like our main.js file, or main.css file
+  // if we don't recognize a route first thing to do is check this folder
+  app.use(express.static("client/build"));
+  // express will serve p the index.html files
+  // if it doens't recognize the route
+  // this is the last catch all that will render the index with react routes
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 // Heroku can pass us runtime config based on environment
 // this variable wouldn't work in dev environment so short circuit
 const PORT = process.env.PORT || 5000;
