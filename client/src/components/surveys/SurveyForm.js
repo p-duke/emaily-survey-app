@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 // you could also replace the component prop with a custom component you create
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
+import validateEmails from "../../utils/validateEmails";
 
 const FIELDS = [
   { label: "Survey Title", name: "title" },
@@ -17,6 +18,7 @@ const FIELDS = [
 // our function
 // any data stored with redux-form will put it under the key of the Field name
 class SurveyForm extends Component {
+  // if you use a function to return a list of html elements it needs to be in an array
   renderFields() {
     return _.map(FIELDS, ({ label, name }) => {
       return (
@@ -30,6 +32,7 @@ class SurveyForm extends Component {
       );
     });
   }
+
   render() {
     return (
       <div>
@@ -48,6 +51,27 @@ class SurveyForm extends Component {
   }
 }
 
+function validate(values) {
+  // if we return an empty errors object redux-form will
+  // assume that the input is valid
+  const errors = {};
+  // when we add a error to a particular field name redux-form will automatically apply that as a
+  // prop on the Field component. You just need to match the error property to the field name
+
+  // this handles our email validation specifically in a separate function
+  errors.emails = validateEmails(values.emails || "");
+
+  // this will overwrite the email validation if its just blank
+  _.each(FIELDS, ({ name }) => {
+    if (!values[name]) {
+      errors[name] = "You must provide a value";
+    }
+  });
+
+  return errors;
+}
+
 export default reduxForm({
+  validate,
   form: "surveyForm"
 })(SurveyForm);
