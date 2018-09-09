@@ -3,14 +3,12 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
+import SurveyNew from "./surveys/SurveyNew";
 // React and redux weren't built with both in mind so need react-redux
 // The connect function allows certain components to call action creators
 import { connect } from "react-redux";
 // take all actions and define them on the actions var
 import * as actions from "../actions";
-
-const SurveyNew = () => <h2>SurveyNew </h2>;
-
 /*
 BrowserRouter must have one child - cannot have two divs
 use exact = true for strict path matching
@@ -23,16 +21,14 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <BrowserRouter>
-          <div>
-            <Header />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/surveys" component={Dashboard} />
-            <Route path="/surveys/new" component={SurveyNew} />
-          </div>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <Header />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/surveys" component={Dashboard} />
+          <Route path="/surveys/new" component={SurveyNew} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
