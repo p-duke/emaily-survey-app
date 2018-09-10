@@ -7,20 +7,15 @@ import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 import validateEmails from "../../utils/validateEmails";
+import formFields from "./formFields";
 
-const FIELDS = [
-  { label: "Survey Title", name: "title" },
-  { label: "Survey Line", name: "subject" },
-  { label: "Email Body", name: "body" },
-  { label: "Recipient List", name: "emails" }
-];
 // we supply onSubmit the handleSubmit redux-form helper that will call
 // our function
 // any data stored with redux-form will put it under the key of the Field name
 class SurveyForm extends Component {
   // if you use a function to return a list of html elements it needs to be in an array
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -36,7 +31,7 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
@@ -59,10 +54,10 @@ function validate(values) {
   // prop on the Field component. You just need to match the error property to the field name
 
   // this handles our email validation specifically in a separate function
-  errors.emails = validateEmails(values.emails || "");
+  errors.recipients = validateEmails(values.recipients || "");
 
   // this will overwrite the email validation if its just blank
-  _.each(FIELDS, ({ name }) => {
+  _.each(formFields, ({ name }) => {
     if (!values[name]) {
       errors[name] = "You must provide a value";
     }
@@ -71,7 +66,10 @@ function validate(values) {
   return errors;
 }
 
+// destroyOnUnmount will keep previous form values around
+// surveyForm will be the key that reduxForm uses to map all the values/info
 export default reduxForm({
   validate,
-  form: "surveyForm"
+  form: "surveyForm",
+  destroyOnUnmount: false
 })(SurveyForm);

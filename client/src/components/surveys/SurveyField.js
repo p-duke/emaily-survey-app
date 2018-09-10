@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // input and label are destructuring off of props object
 // errors and touched are nested destructuring

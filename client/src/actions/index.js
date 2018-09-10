@@ -12,3 +12,12 @@ export const handleToken = token => async dispatch => {
 
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+export const submitSurvey = (values, history) => async dispatch => {
+  const res = await axios.post("/api/surveys", values);
+
+  // we are passing the components history into this action creator so that
+  // we can push a redirect onto the history
+  history.push("/surveys");
+  dispatch({ type: FETCH_USER, payload: res.data });
+};
