@@ -1,3 +1,7 @@
+const _ = require("lodash");
+const Path = require("path-parser").default;
+// URL is a module that comes with node
+const { URL } = require("url");
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
@@ -12,8 +16,18 @@ module.exports = app => {
     res.send("Thanks for voting!");
   });
 
-  app.get("/api/surveys/webhooks", (req, res) => {
-    console.log(req.body);
+  app.post("/api/surveys/webhooks", (req, res) => {
+    const events = _.map(req.body, ({ email, url }) => {
+      const pathname = new URL(url).pathname;
+      // Path is a regex that you give it a pattern and it will construct and object with those :names
+      const p = new Path("/api/surveys/:surveyId/:choice");
+      const match = p.test(pathname);
+      if (match) {
+        return { email, surveyId: match.surveyId, choice: match.choice };
+      }
+    });
+    const compactEvents = _.compact(events);
+    const uniqueEvents = _.uniqBy(compactEvents, "email", "surveyId");
     res.send({});
   });
 

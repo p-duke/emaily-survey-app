@@ -1,5 +1,5 @@
 function localtunnel {
-  lt -s dianble --port 5000
+  ./node_modules/.bin/lt --subdomain dianble --port 5000
 }
 until localtunnel; do
 echo "localtunnel server crashed"
