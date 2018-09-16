@@ -1,5 +1,4 @@
 node_modules
-notes.txt
 dev.js
 client/.env.development
 client/.env.production
