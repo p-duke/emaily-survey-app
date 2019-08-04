@@ -8,14 +8,17 @@ import { withRouter } from "react-router-dom";
 const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
   const reviewFields = _.map(formFields, ({ label, name }) => {
     return (
-      <div key={name}>
-        <label>{label}</label>
-        <div>{formValues[name]}</div>
+      <div className="row">
+        <div className="input-field col s12">
+          <label className="active">{label}</label>
+          <input value={formValues[name]} style={{ marginBottom: "5px" }} />
+        </div>
       </div>
     );
   });
   return (
-    <div>
+    <div className="container">
+      <div style={{ height: "50px" }}></div>
       <h5>Please confirm your entries</h5>
       {reviewFields}
       <button
