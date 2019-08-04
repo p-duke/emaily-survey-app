@@ -11,7 +11,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
       <div className="row">
         <div className="input-field col s12">
           <label className="active">{label}</label>
-          <input value={formValues[name]} style={{ marginBottom: "5px" }} />
+          <input disabled value={formValues[name]} style={{ marginBottom: "5px" }} />
         </div>
       </div>
     );
