@@ -5,7 +5,10 @@ import React from "react";
 const Landing = () => {
   return (
     <div className="container">
-      <h2 className="center-align">Welcome to Emaily!</h2>
+      <div style={{ height: "50px" }}></div>
+      <h3 className="left-align">Welcome to Emaily!</h3>
+      <h5>Accelerate your company's growth with customer feedback.</h5>
+      <div style={{ height: "50px" }}></div>
       <div className="row">
 
         <div className="col s4 center-align">
